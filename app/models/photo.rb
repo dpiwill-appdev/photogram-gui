@@ -15,6 +15,8 @@
 class Photo < ApplicationRecord
   validates(:poster, { :presence => true })
 
+  belongs_to :owner, class_name: "User"
+
   def poster
     my_owner_id = self.owner_id
 
@@ -43,7 +45,7 @@ class Photo < ApplicationRecord
 
   def fans
     my_likes = self.likes
-    
+
     array_of_user_ids = Array.new
 
     my_likes.each do |a_like|

@@ -37,7 +37,7 @@
   <% @photos.each do |photo| %>
     <tr>
       <td>
-        <img src="<%= photo %>">
+        <img src="<%= photo.image %>">
       </td>
 
       <td>
@@ -45,7 +45,7 @@
       </td>
 
       <td>
-        <%= photo %>
+        <%= photo.owner_id %>
       </td>
 
       <td>

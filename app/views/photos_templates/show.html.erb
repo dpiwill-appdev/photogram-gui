@@ -35,27 +35,13 @@
   </tr>
 
   <% @photos.each do |photo| %>
-    <tr>
-      <td>
-        <img src="<%= photo.image_url %>">
-      </td>
-
-      <td>
-        <%= photo.caption %>
-      </td>
-
-      <td>
-        <%= photo.owner.username %>
-      </td>
-
-      <td>
-        <%= photo.created_at %>
-      </td>
-
-      <td>
-        <a href="/photos/<%= photo.id %>">
-          Show details
-        </a>
+      <tr>
+        <td>
+          <img src="<%= photo.image.url %>">
+        </td>
+        <td><%= photo.caption %></td>
+        <td><%= photo.owner %></td>
+        <td><a href="<%= photo_path(photo) %>">Show details</a></td>
       </td>
     </tr>
   <% end %>
