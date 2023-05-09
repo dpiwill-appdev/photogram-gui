@@ -4,13 +4,19 @@ class PhotosController < ApplicationController
     render "photos_templates/index.html.erb"
   end
 
+  def photo_params
+    params.require(:photo).permit(:caption, :image, :owner_id)
+  end
+
   def show
-    @photos = Photo.find(params[:id])
+    @photo = Photo.find(params[:id])
+    @owner = @photo.owner.username
     render "photos_templates/show.html.erb"
   end
 
   def new
     @photo = Photo.new
+    @users = User.all
   end
 
   def create
@@ -19,12 +25,14 @@ class PhotosController < ApplicationController
     if @photo.save
       redirect_to @photo
     else
+      @users = User.all
       render "new"
     end
   end
 
   def edit
     @photo = Photo.find(params[:id])
+    @users = User.all
   end
 
   def update
@@ -33,6 +41,7 @@ class PhotosController < ApplicationController
     if @photo.update(photo_params)
       redirect_to @photo
     else
+      @users = User.all
       render "edit"
     end
   end
@@ -42,11 +51,5 @@ class PhotosController < ApplicationController
     @photo.destroy
 
     redirect_to photos_path
-  end
-
-  private
-
-  def photo_params
-    params.require(:photo).permit(:caption, :image, :owner)
   end
 end

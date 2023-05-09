@@ -12,6 +12,8 @@
 
 class Comment < ApplicationRecord
   validates(:commenter, { :presence => true })
+  belongs_to :author, class_name: "User"
+  belongs_to :photo
 
   def commenter
     my_author_id = self.author_id

@@ -1,21 +1,13 @@
 Rails.application.routes.draw do
-  get("/", { :controller => "users", :action => "index" })
+  root "users#index"
 
-  get("/users", { :controller => "users", :action => "index" })
+  resources :users, param: :username do
+    resources :photos, only: [:create]
+  end
 
-  get("/users/:username", { :controller => "users", :action => "show" })
+  resources :photos, except: [:create] do
+    resources :comments, only: [:create]
+  end
 
-  get("/photos", { :controller => "photos", :action => "index" })
-
-  get("/photos/:id", { :controller => "photos", :action => "show" })
-
-  get("/photos/:id/edit", { :controller => "photos", :action => "edit" })
-
-  post("/photos", { :controller => "photos", :action => "create" })
-
-  patch("/photos/:id", { :controller => "photos", :action => "update" })
-
-  delete("/delete_photo/:id", { :controller => "photos", :action => "destroy" })
-
-  post("/comments", { :controller => "comments", :action => "create" })
+  delete "/delete_photo/:id", { :controller => "photos", :action => "destroy" }
 end

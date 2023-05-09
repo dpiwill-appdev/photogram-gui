@@ -30,8 +30,8 @@
   <% @list_of_users.each do |user| %>
     <tr>
       <td><%= user.id %></td>
-      <td><%= user.username %></td>
-      <td><a href="/users/<%= user.id %>">Show details</a></td>
+      <td><%= link_to user.username, user_path(user.username) %></td>
+      <td><a href="<%= user_path(user.username) %>">Show details</a></td>
     </tr>
   <% end %>
 </table>

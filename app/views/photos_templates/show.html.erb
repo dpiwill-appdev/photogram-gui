@@ -34,15 +34,35 @@
     <th></th>
   </tr>
 
-  <% @photos.each do |photo| %>
+  <#% @photos.each do |photo| %>
       <tr>
         <td>
-          <img src="<%= photo.image.url %>">
+          <#img src="<%= %>">
         </td>
-        <td><%= photo.caption %></td>
-        <td><%= photo.owner %></td>
-        <td><a href="<%= photo_path(photo) %>">Show details</a></td>
+        <td><%=  %></td>
+        <td><%= %></td>
+        <td><a href="<%= (@photo) %>">Show details</a></td>
       </td>
     </tr>
-  <% end %>
+  <#% end %>
 </table>
+
+
+<h1><%= @photo.caption %></h1>
+<p>Uploaded by <%= @owner %></p>
+<img src="<%= url_for(@photo.image) %>">
+
+<h2>Comments:</h2>
+<% @photo.comments.each do |comment| %>
+  <p><%= comment.body %> - <%= comment.commenter.username %></p>
+<% end %>
+
+<%= form_for([@photo, Comment.new]) do |f| %>
+  <p>
+    <%= f.label :body, "Add a comment:" %><br>
+    <%= f.text_area :body %>
+  </p>
+  <p>
+    <%= f.submit "Submit" %>
+  </p>
+<% end %>

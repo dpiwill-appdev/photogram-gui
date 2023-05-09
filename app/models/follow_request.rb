@@ -11,11 +11,13 @@
 #
 
 class FollowRequest < ApplicationRecord
-  validates(:sender, { :presence => true})
+  validates(:sender, { :presence => true })
   validates(:recipient, { :presence => true })
   validates(:recipient_id, {
-    :uniqueness => { :scope => [:sender_id] }
+    :uniqueness => { :scope => [:sender_id] },
   })
+  belongs_to :sender, class_name: "User"
+  belongs_to :recipient, class_name: "User"
 
   def sender
     my_sender_id = self.sender_id
